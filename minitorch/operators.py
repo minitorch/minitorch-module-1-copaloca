@@ -34,7 +34,7 @@ def add(x: float, y: float) -> float:
 def neg(x: float) -> float:
     "$f(x) = -x$"
     # TODO: Implement for Task 0.1.
-    return -x
+    return 0.0 - x
     raise NotImplementedError("Need to implement for Task 0.1")
 
 
@@ -62,7 +62,7 @@ def max(x: float, y: float) -> float:
 def is_close(x: float, y: float) -> float:
     "$f(x) = |x - y| < 1e-2$"
     # TODO: Implement for Task 0.1.
-    return abs(x - y) < 1e-2
+    return 1.0 if abs(x - y) < 1e-2 else 0.0
     raise NotImplementedError("Need to implement for Task 0.1")
 
 
@@ -79,7 +79,7 @@ def sigmoid(x: float) -> float:
     for stability.
     """
     # TODO: Implement for Task 0.1.
-    return 1.0 / (1.0 + math.exp(-x)) if x >= 0 else math.exp(x) / (1.0 + math.exp(x))
+    return 1.0 / (1.0 + math.exp(-x)) if x >= 0.0 else math.exp(x) / (1.0 + math.exp(x))
     raise NotImplementedError("Need to implement for Task 0.1")
 
 
@@ -90,7 +90,7 @@ def relu(x: float) -> float:
     (See https://en.wikipedia.org/wiki/Rectifier_(neural_networks) .)
     """
     # TODO: Implement for Task 0.1.
-    return x if x > 0 else 0
+    return x if x > 0.0 else 0.0
     raise NotImplementedError("Need to implement for Task 0.1")
 
 
@@ -118,7 +118,7 @@ def log_back(x: float, d: float) -> float:
 def inv(x: float) -> float:
     "$f(x) = 1/x$"
     # TODO: Implement for Task 0.1.
-    return 1 / x
+    return 1.0 / x
     raise NotImplementedError("Need to implement for Task 0.1")
 
 
@@ -133,7 +133,7 @@ def inv_back(x: float, d: float) -> float:
 def relu_back(x: float, d: float) -> float:
     r"If $f = relu$ compute $d \times f'(x)$"
     # TODO: Implement for Task 0.1.
-    diff = 1.0 if x > 0 else 0.0
+    diff = 1.0 if x > 0.0 else 0.0
     return d * diff
     raise NotImplementedError("Need to implement for Task 0.1")
 
