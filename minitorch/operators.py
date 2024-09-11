@@ -1,185 +1,429 @@
-"""
-Collection of the core mathematical operators used throughout the code base.
-"""
+"""Collection of the core mathematical operators used throughout the code base."""
 
 import math
-from typing import Callable, Iterable
 
 # ## Task 0.1
+from typing import Callable, Iterable
+
 #
 # Implementation of a prelude of elementary functions.
 
-
-def mul(x: float, y: float) -> float:
-    "$f(x, y) = x * y$"
-    raise NotImplementedError("Need to include this file from past assignment.")
-
-
-def id(x: float) -> float:
-    "$f(x) = x$"
-    raise NotImplementedError("Need to include this file from past assignment.")
-
-
-def add(x: float, y: float) -> float:
-    "$f(x, y) = x + y$"
-    raise NotImplementedError("Need to include this file from past assignment.")
-
-
-def neg(x: float) -> float:
-    "$f(x) = -x$"
-    raise NotImplementedError("Need to include this file from past assignment.")
-
-
-def lt(x: float, y: float) -> float:
-    "$f(x) =$ 1.0 if x is less than y else 0.0"
-    raise NotImplementedError("Need to include this file from past assignment.")
+# Mathematical functions:
+# - mul
+# - id
+# - add
+# - neg
+# - lt
+# - eq
+# - max
+# - is_close
+# - sigmoid
+# - relu
+# - log
+# - exp
+# - log_back
+# - inv
+# - inv_back
+# - relu_back
+#
+# For sigmoid calculate as:
+# $f(x) =  \frac{1.0}{(1.0 + e^{-x})}$ if x >=0 else $\frac{e^x}{(1.0 + e^{x})}$
+# For is_close:
+# $f(x) = |x - y| < 1e-2$
 
 
-def eq(x: float, y: float) -> float:
-    "$f(x) =$ 1.0 if x is equal to y else 0.0"
-    raise NotImplementedError("Need to include this file from past assignment.")
+# TODO: Implement for Task 0.1.
 
 
-def max(x: float, y: float) -> float:
-    "$f(x) =$ x if x is greater than y else y"
-    raise NotImplementedError("Need to include this file from past assignment.")
+def mul(a: float, b: float) -> float:
+    """Multiplies two numbers.
 
+    Args:
+    ----
+        a: first number.
+        b: second number.
 
-def is_close(x: float, y: float) -> float:
-    "$f(x) = |x - y| < 1e-2$"
-    raise NotImplementedError("Need to include this file from past assignment.")
+    Returns:
+    -------
+        the product of a and b.
 
-
-def sigmoid(x: float) -> float:
-    r"""
-    $f(x) =  \frac{1.0}{(1.0 + e^{-x})}$
-
-    (See https://en.wikipedia.org/wiki/Sigmoid_function )
-
-    Calculate as
-
-    $f(x) =  \frac{1.0}{(1.0 + e^{-x})}$ if x >=0 else $\frac{e^x}{(1.0 + e^{x})}$
-
-    for stability.
     """
-    raise NotImplementedError("Need to include this file from past assignment.")
+    return a * b
 
 
-def relu(x: float) -> float:
+def id(a: float) -> float:
+    """Returns the input unchanged.
+
+    Args:
+    ----
+        a: number to be returned unchanged.
+
+    Returns:
+    -------
+        the input number a.
+
     """
-    $f(x) =$ x if x is greater than 0, else 0
+    return a
 
-    (See https://en.wikipedia.org/wiki/Rectifier_(neural_networks) .)
+
+def add(a: float, b: float) -> float:
+    """Adds two numbers.
+
+    Args:
+    ----
+        a: first number.
+        b: second number.
+
+    Returns:
+    -------
+        the sum of a and b.
+
     """
-    raise NotImplementedError("Need to include this file from past assignment.")
+    return a + b
 
 
-EPS = 1e-6
+def neg(a: float) -> float:
+    """Negates a number.
+
+    Args:
+    ----
+        a: number to be negated.
+
+    Returns:
+    -------
+        the negated number.
+
+    """
+    return -a
 
 
-def log(x: float) -> float:
-    "$f(x) = log(x)$"
-    return math.log(x + EPS)
+def lt(a: float, b: float) -> bool:
+    """Checks if one number is less than another.
+
+    Args:
+    ----
+        a: first number.
+        b: second number.
+
+    Returns:
+    -------
+        True if a is less than b, False otherwise.
+
+    """
+    return a < b
 
 
-def exp(x: float) -> float:
-    "$f(x) = e^{x}$"
-    return math.exp(x)
+def eq(a: float, b: float) -> bool:
+    """Checks if two numbers are equal.
+
+    Args:
+    ----
+        a: first number.
+        b: second number.
+
+    Returns:
+    -------
+        True if a is equal to b, False otherwise.
+
+    """
+    return a == b
 
 
-def log_back(x: float, d: float) -> float:
-    r"If $f = log$ as above, compute $d \times f'(x)$"
-    raise NotImplementedError("Need to include this file from past assignment.")
+def max(a: float, b: float) -> float:
+    """Returns the larger of two numbers.
+
+    Args:
+    ----
+        a: first number.
+        b: second number.
+
+    Returns:
+    -------
+        the larger of a and b.
+
+    """
+    return a if a > b else b
 
 
-def inv(x: float) -> float:
-    "$f(x) = 1/x$"
-    raise NotImplementedError("Need to include this file from past assignment.")
+def is_close(a: float, b: float) -> bool:
+    """Checks if two numbers are close in value.
+
+    Args:
+    ----
+        a: first number.
+        b: second number.
+
+    Returns:
+    -------
+        True if a and b are close, False otherwise.
+
+    """
+    return abs(a - b) < 1e-2
 
 
-def inv_back(x: float, d: float) -> float:
-    r"If $f(x) = 1/x$ compute $d \times f'(x)$"
-    raise NotImplementedError("Need to include this file from past assignment.")
+def sigmoid(a: float) -> float:
+    """Calculates the sigmoid function.
+
+    Args:
+    ----
+        a: number to be sigmoided.
+
+    Returns:
+    -------
+        the sigmoid of a.
+
+    """
+    return 1.0 / (1.0 + math.exp(-a)) if a >= 0 else math.exp(a) / (1.0 + math.exp(a))
 
 
-def relu_back(x: float, d: float) -> float:
-    r"If $f = relu$ compute $d \times f'(x)$"
-    raise NotImplementedError("Need to include this file from past assignment.")
+def relu(a: float) -> float:
+    """Applies the ReLU activation function.
+
+    Args:
+    ----
+        a: number to be ReLUed.
+
+    Returns:
+    -------
+        the ReLU of a.
+
+    """
+    return a if a > 0 else 0
+
+
+def log(a: float) -> float:
+    """Calculates the natural logarithm.
+
+    Args:
+    ----
+        a: number to be logarithmized.
+
+    Returns:
+    -------
+        the natural logarithm of a.
+
+    """
+    return math.log(a)
+
+
+def exp(a: float) -> float:
+    """Calculates the exponential function.
+
+    Args:
+    ----
+        a: number to be exponentiated.
+
+    Returns:
+    -------
+        the exponential of a.
+
+    """
+    return math.exp(a)
+
+
+def inv(a: float) -> float:
+    """Calculates the reciprocal.
+
+    Args:
+    ----
+        a: number to be reciprocated.
+
+    Returns:
+    -------
+        the reciprocal of a.
+
+    """
+    return 1 / a
+
+
+def log_back(a: float, b: float) -> float:
+    """Calculates the derivative of log times a second arg.
+
+    Args:
+    ----
+        a: first number.
+        b: second number.
+
+    Returns:
+    -------
+        the derivative of the logarithm of a times b.
+
+    """
+    return b / a
+
+
+def inv_back(a: float, b: float) -> float:
+    """Calculates the derivative of reciprocal times a second arg.
+
+    Args:
+    ----
+        a: first number.
+        b: second number.
+
+    Returns:
+    -------
+        the derivative of the reciprocal of a times b.
+
+    """
+    return -b / a**2
+
+
+def relu_back(a: float, b: float) -> float:
+    """Calculates the derivative of ReLU times a second arg.
+
+    Args:
+    ----
+        a: first number.
+        b: second number.
+
+    Returns:
+    -------
+        the derivative of the ReLU of a times b.
+
+    """
+    return b * (1 if a > 0 else 0)
 
 
 # ## Task 0.3
 
 # Small practice library of elementary higher-order functions.
 
+# Implement the following core functions
+# - map
+# - zipWith
+# - reduce
+#
+# Use these to implement
+# - negList : negate a list
+# - addLists : add two lists together
+# - sum: sum lists
+# - prod: take the product of lists
 
-def map(fn: Callable[[float], float]) -> Callable[[Iterable[float]], Iterable[float]]:
-    """
-    Higher-order map.
 
-    See https://en.wikipedia.org/wiki/Map_(higher-order_function)
+# TODO: Implement for Task 0.3.
+
+
+def map(f: Callable[[float], float]) -> Callable[[Iterable[float]], Iterable[float]]:
+    """Higher-order function that applies a given function to each element of an iterable.
 
     Args:
-        fn: Function from one value to one value.
+    ----
+        f: function to be transformed.
 
     Returns:
-        A function that takes a list, applies `fn` to each element, and returns a
-         new list
+    -------
+        a new function that applies f to its input.
+
     """
-    raise NotImplementedError("Need to include this file from past assignment.")
 
+    def apply(iter: Iterable[float]) -> Iterable[float]:
+        return [f(x) for x in iter]
 
-def negList(ls: Iterable[float]) -> Iterable[float]:
-    "Use `map` and `neg` to negate each element in `ls`"
-    raise NotImplementedError("Need to include this file from past assignment.")
+    return apply
 
 
 def zipWith(
-    fn: Callable[[float, float], float]
+    f: Callable[[float, float], float],
 ) -> Callable[[Iterable[float], Iterable[float]], Iterable[float]]:
-    """
-    Higher-order zipwith (or map2).
-
-    See https://en.wikipedia.org/wiki/Map_(higher-order_function)
+    """Higher-order function that combines elements from two iterables using a given function.
 
     Args:
-        fn: combine two values
+    ----
+        f: function to be applied to each pair of elements.
 
     Returns:
-        Function that takes two equally sized lists `ls1` and `ls2`, produce a new list by
-         applying fn(x, y) on each pair of elements.
+    -------
+        a new function that applies f to each pair of elements from two iterables.
 
     """
-    raise NotImplementedError("Need to include this file from past assignment.")
 
+    def apply(iter1: Iterable[float], iter2: Iterable[float]) -> Iterable[float]:
+        return [f(x, y) for x, y in zip(iter1, iter2)]
 
-def addLists(ls1: Iterable[float], ls2: Iterable[float]) -> Iterable[float]:
-    "Add the elements of `ls1` and `ls2` using `zipWith` and `add`"
-    raise NotImplementedError("Need to include this file from past assignment.")
+    return apply
 
 
 def reduce(
-    fn: Callable[[float, float], float], start: float
+    f: Callable[[float, float], float], first: float
 ) -> Callable[[Iterable[float]], float]:
-    r"""
-    Higher-order reduce.
+    """Higher-order function that reduces an iterable to a single value using a given function.
 
     Args:
-        fn: combine two values
-        start: start value $x_0$
+    ----
+        f: function to be applied to each pair of elements.
+        first: first element to be used in the reduction.
 
     Returns:
-        Function that takes a list `ls` of elements
-         $x_1 \ldots x_n$ and computes the reduction :math:`fn(x_3, fn(x_2,
-         fn(x_1, x_0)))`
+    -------
+        a new function that reduces an iterable to a single value using f.
+
     """
-    raise NotImplementedError("Need to include this file from past assignment.")
+
+    def apply(iter: Iterable[float]) -> float:
+        n = first
+        for x in iter:
+            n = f(n, x)
+        return n
+
+    return apply
 
 
-def sum(ls: Iterable[float]) -> float:
-    "Sum up a list using `reduce` and `add`."
-    raise NotImplementedError("Need to include this file from past assignment.")
+def negList(iter: Iterable) -> Iterable:
+    """Negates all elements in a list using map.
+
+    Args:
+    ----
+        iter: iterable to be negated.
+
+    Returns:
+    -------
+        a list of the negated elements of iter.
+
+    """
+    return map(neg)(iter)
 
 
-def prod(ls: Iterable[float]) -> float:
-    "Product of a list using `reduce` and `mul`."
-    raise NotImplementedError("Need to include this file from past assignment.")
+def addLists(iter1: Iterable, iter2: Iterable) -> Iterable:
+    """Adds corresponding elements from two lists using zipWith.
+
+    Args:
+    ----
+        iter1: first iterable.
+        iter2: second iterable.
+
+    Returns:
+    -------
+        a list of the sums of corresponding elements from iter1 and iter2.
+
+    """
+    return zipWith(add)(iter1, iter2)
+
+
+def sum(iter: Iterable) -> float:
+    """Sums all elements in a list using reduce.
+
+    Args:
+    ----
+        iter: iterable to be summed.
+
+    Returns:
+    -------
+        the sum of all elements in iter.
+
+    """
+    return reduce(add, 0)(iter)
+
+
+def prod(iter: Iterable) -> float:
+    """Calculates the product of all elements in a list using reduce.
+
+    Args:
+    ----
+        iter: iterable to be multiplied.
+
+    Returns:
+    -------
+        the product of all elements in iter.
+
+    """
+    return reduce(mul, 1)(iter)
